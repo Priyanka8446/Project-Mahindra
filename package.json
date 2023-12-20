@@ -1,8 +1,8 @@
 {
   "name": "mahindra-finance",
   "version": "0.1.0",
+  "homepage": "https://Priyanka8446.github.io/react-gh-pages",
   "private": true,
-  "homepage": "http://Priyanka8446.github.io/react-gh-pages",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
