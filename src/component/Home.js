@@ -65,9 +65,6 @@ export default function Home() {
   setBranch('')
   setType('')
   setStatus('')
-  setAmount('')
-  setBank('')
-  setRequest('')
 }
   return (
     <div className="m-3">
@@ -88,7 +85,7 @@ export default function Home() {
           <Box sx={style}>
             <div className=" flex flex-col justify-center">
               <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
+                Enter Details 
               </Typography>
               <InputLabel id="branch" autoComplete='off'>Branch</InputLabel>
               <Select
