@@ -5,7 +5,7 @@ import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 
-const date = new Date();
+// const date = new Date();
 
 export default function Filter({ newData, setNewData }) {
   console.log(newData);
@@ -14,6 +14,8 @@ export default function Filter({ newData, setNewData }) {
   const [branch, setBranch] = useState("");
   const [type, setType] = useState("");
   const [status, setStatus] = useState("");
+  const [startDate, setStartDate] = useState("")
+  const [endDate, setEndDate] = useState("")
 
   const[filteredData, setFilteredData] = useState([])
 
@@ -22,7 +24,9 @@ export default function Filter({ newData, setNewData }) {
       (item) =>
         item.branch.toLowerCase().includes(branch.toLowerCase()) &&
         item.type.toString().includes(type) &&
-        item.status.toLowerCase().includes(status.toLowerCase())
+        item.status.toLowerCase().includes(status.toLowerCase()) &&
+        item.date >= startDate &&
+        item.date <= endDate
     )
     )
     console.log(filteredData)
@@ -37,12 +41,12 @@ export default function Filter({ newData, setNewData }) {
       <div className="filter-bar flex gap-4 m-3">
         <div className={styles.filterBox}>
           <label htmlFor="from">From</label>
-          <input type="date" id="date" name="From_date" />
+          <input type="date" id="date" name="From_date" onChange={(e) => setStartDate(e.target.value)}/>
         </div>
 
         <div className={styles.filterBox}>
           <label htmlFor="from">To</label>
-          <input type="date" id="date" name="To_date" />
+          <input type="date" id="date" name="To_date" onChange={(e) => setEndDate(e.target.value)}/>
         </div>
 
         <div className={`${styles.filterBox} ${styles.filterSort}`}>
@@ -117,7 +121,7 @@ export default function Filter({ newData, setNewData }) {
               <TableBody>
                 <TableRow key={index}>
                   <TableCell>{item.id}</TableCell>
-                  <TableCell>{date.toLocaleDateString()}</TableCell>
+                  <TableCell>{item.date}</TableCell>
                   <TableCell>{item.branch}</TableCell>
                   <TableCell>{item.type}</TableCell>
                   <TableCell>{item.amount}</TableCell>
@@ -134,7 +138,7 @@ export default function Filter({ newData, setNewData }) {
               <TableBody>
                 <TableRow key={index}>
                   <TableCell>{item.id}</TableCell>
-                  <TableCell>{date.toLocaleDateString()}</TableCell>
+                  <TableCell>{item.date}</TableCell>
                   <TableCell>{item.branch}</TableCell>
                   <TableCell>{item.type}</TableCell>
                   <TableCell>{item.amount}</TableCell>

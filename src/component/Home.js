@@ -10,6 +10,10 @@ import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const style = {
   position: "absolute",
@@ -17,7 +21,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 500,
-  height: 600,
+  height: 700,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -35,10 +39,10 @@ export default function Home() {
   const [bank, setBank] = useState("");
   const [requestBy, setRequest] = useState("");
   const [status, setStatus] = useState("");
+  const [date, setDate] = useState("");
 
-  const[newData, setNewData] = useState([])
+  const [newData, setNewData] = useState([]);
 
-  
   const createData = {
     branch,
     amount,
@@ -46,30 +50,36 @@ export default function Home() {
     requestBy,
     status,
     type,
+    date,
     id: Date.now(),
   };
   function handleSubmit(e) {
     e.preventDefault();
-    
-    if(createData.branch==='' && createData.type==='' && createData.amount==='' && createData.bank==='' && createData.status==='' && createData.requestBy==='') return
 
-    else{
-    
-    console.log(createData);
+    if (
+      createData.branch === "" &&
+      createData.type === "" &&
+      createData.amount === "" &&
+      createData.bank === "" &&
+      createData.status === "" &&
+      createData.requestBy === ""
+    )
+      return;
+    else {
+      console.log(createData);
 
-    if(createData){
-    setNewData((prev)=>[...prev, createData])
-    console.log(newData)
+      if (createData) {
+        setNewData((prev) => [...prev, createData]);
+        console.log(newData);
+      }
     }
+    setBranch("");
+    setType("");
+    setStatus("");
   }
-  setBranch('')
-  setType('')
-  setStatus('')
-}
   return (
     <div className="m-3">
       <div>
-
         <div to="/create" className="create-btn">
           <button className={`${styles.btn} float-right`} onClick={handleOpen}>
             Create <span className=" font-extrabold">+</span>{" "}
@@ -85,9 +95,11 @@ export default function Home() {
           <Box sx={style}>
             <div className=" flex flex-col justify-center">
               <Typography id="modal-modal-title" variant="h6" component="h2">
-                Enter Details 
+                Enter Details
               </Typography>
-              <InputLabel id="branch" autoComplete='off'>Branch</InputLabel>
+              <InputLabel id="branch" autoComplete="off">
+                Branch
+              </InputLabel>
               <Select
                 labelId="branch"
                 id="branch"
@@ -113,9 +125,7 @@ export default function Home() {
                 value={type}
                 onChange={(e) => setType(e.target.value)}
               >
-                <MenuItem value="All">
-                  All
-                </MenuItem>
+                <MenuItem value="All">All</MenuItem>
                 <MenuItem value="full">Full</MenuItem>
                 <MenuItem value="short">Short</MenuItem>
               </Select>
@@ -137,6 +147,9 @@ export default function Home() {
                 variant="outlined"
                 onChange={(e) => setRequest(e.target.value)}
               />
+
+              <input style={{height:"50px", border:"1px solid grey"}} type="date" name="" id="" value={date} onChange={(e)=>setDate(e.target.value)}/>
+
               <InputLabel id="status">Status</InputLabel>
               <Select
                 labelId="status"
@@ -144,19 +157,18 @@ export default function Home() {
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
               >
-                <MenuItem value="All">
-                  All
-                </MenuItem>
+                <MenuItem value="All">All</MenuItem>
                 <MenuItem value="pending">Pending</MenuItem>
                 <MenuItem value="Rejected">Rejected</MenuItem>
                 <MenuItem value="approved">Approved</MenuItem>
               </Select>
-              <br /> <br />
+              <br />
               <Button onClick={handleSubmit} variant="outlined">
-                Submit 
+                Submit
               </Button>
+              <br />
               <Button onClick={handleClose} variant="outlined">
-                Close 
+                Close
               </Button>
             </div>
           </Box>
@@ -166,9 +178,8 @@ export default function Home() {
         <div className="total-entry">
           <p className=" text-xl m-3">Total({newData.length})</p>
         </div>
-      <Filter newData={newData} setNewData={setNewData}/>
+        <Filter newData={newData} setNewData={setNewData} />
       </div>
-
     </div>
   );
 }
