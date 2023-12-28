@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import styles from "../styles.module.css";
 import Filter from "./Filter";
 import Modal from "@mui/material/Modal";
@@ -10,7 +10,6 @@ import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { globalData } from "../App";
 
 const style = {
   position: "absolute",
@@ -62,11 +61,17 @@ export default function Home() {
     setNewData((prev)=>[...prev, createData])
     console.log(newData)
     }
-  }}
+  }
+  setBranch('')
+  setType('')
+  setStatus('')
+  setAmount('')
+  setBank('')
+  setRequest('')
+}
   return (
     <div className="m-3">
       <div>
-        {/* //create btn - right side */}
 
         <div to="/create" className="create-btn">
           <button className={`${styles.btn} float-right`} onClick={handleOpen}>
@@ -146,12 +151,15 @@ export default function Home() {
                   All
                 </MenuItem>
                 <MenuItem value="pending">Pending</MenuItem>
-                <MenuItem value="fulfilled">Rejected</MenuItem>
+                <MenuItem value="Rejected">Rejected</MenuItem>
                 <MenuItem value="approved">Approved</MenuItem>
               </Select>
               <br /> <br />
               <Button onClick={handleSubmit} variant="outlined">
                 Submit 
+              </Button>
+              <Button onClick={handleClose} variant="outlined">
+                Close 
               </Button>
             </div>
           </Box>
